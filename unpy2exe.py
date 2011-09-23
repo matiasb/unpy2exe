@@ -15,7 +15,7 @@ IGNORE = [
 def __timestamp():
     """Generate timestamp data for pyc header."""
     today = time.time()
-    ret = struct.pack('L', int(today))
+    ret = struct.pack('=L', int(today))
     return ret
 
 def __build_magic(magic):
