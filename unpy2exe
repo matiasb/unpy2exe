@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+import argparse
+import logging
+
+from unpy2exe import unpy2exe
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='Extract pyc files from py2exe executable.')
+    parser.add_argument('filename', help='The py2exe executable')
+    parser.add_argument(
+        '-o', '--output-dir', default='.',
+        help="Output directory")
+    parser.add_argument(
+        '-p', '--python-version', default=None,
+        help="Python major version for pyc (ie: X.Y)")
+    parser.add_argument(
+        '-v', '--verbose', help="Verbose output", action="store_true")
+    args = vars(parser.parse_args())
+
+    if args.pop('verbose', False):
+        logging.basicConfig(format='%(message)s', level=logging.INFO)
+
+    try:
+        unpy2exe(**args)
+    except Exception as e:
+        print('There was an error:', str(e))
