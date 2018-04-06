@@ -1,9 +1,16 @@
-from distutils.core import setup
+from setuptools import setup
+
+
+with open('README.md') as f:
+    long_description = f.read()
+
 
 setup(
     name='unpy2exe',
-    version='0.3',
+    version='0.4',
     description='Extract pyc files from py2exe executable.',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     keywords=['py2exe', 'pyc', 'extract'],
     author='Matias Bordese',
     author_email='mbordese@gmail.com',

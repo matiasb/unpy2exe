@@ -108,9 +108,20 @@ def _get_co_from_dump(data):
     return code_objects
 
 
-def extract_code_objects(filename):
+def check_py2exe_file(pe):
+    """Check file is a py2exe executable."""
+    py2exe_resource = _get_scripts_resource(pe)
+
+    if py2exe_resource is None:
+        logging.info('This is not a py2exe executable.')
+        if pe.__data__.find(b'pyi-windows-manifest-filename'):
+            logging.info('This seems a pyinstaller executable (unsupported).')
+
+    return bool(py2exe_resource)
+
+
+def extract_code_objects(pe):
     """Extract Python code objects from a py2exe executable."""
-    pe = pefile.PE(filename)
     script_res = _get_scripts_resource(pe)
     dump = _resource_dump(pe, script_res)
     return _get_co_from_dump(dump)
@@ -157,6 +168,12 @@ def unpy2exe(filename, python_version=None, output_dir=None):
     elif not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    code_objects = extract_code_objects(filename)
+    pe = pefile.PE(filename)
+
+    is_py2exe = check_py2exe_file(pe)
+    if not is_py2exe:
+        raise ValueError('Not a py2exe executable.')
+
+    code_objects = extract_code_objects(pe)
     for co in code_objects:
         dump_to_pyc(co, python_version, output_dir)
