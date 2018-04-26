@@ -2,7 +2,7 @@ unpy2exe
 ========
 
 ```
-usage: unpy2exe.py [-h] [-o OUTPUT_DIR] [-p PYTHON_VERSION] filename
+usage: unpy2exe [-h] [-o OUTPUT_DIR] [-p PYTHON_VERSION] filename
 
 Extract pyc files from py2exe executable.
 
