@@ -10,10 +10,10 @@ import time
 import pefile
 import six
 
-
 IGNORE = [
     '<install zipextimporter>.pyc',  # zip importer added by py2exe
     '<bootstrap2>.pyc',  # bootstrap added by py2exe
+    '<boot hacks>.pyc', # boot hacks added by py2exe
     'boot_common.py.pyc',  # boot_common added by py2exe
 ]
 
@@ -34,15 +34,20 @@ PYTHON_MAGIC_WORDS = {
     '2.4': __build_magic(62061),
     '2.5': __build_magic(62131),
     '2.6': __build_magic(62161),
-    '2.7': __build_magic(62191),
-    '3.0': __build_magic(3000),
-    '3.1': __build_magic(3141),
-    '3.2': __build_magic(3160),
-    '3.3': __build_magic(3190),
-    '3.4': __build_magic(3250),
+    '2.7': __build_magic(62211),
+    '3.0': __build_magic(3130),
+    '3.1': __build_magic(3150),
+    '3.2': __build_magic(3180),
+    '3.3': __build_magic(3230),
+    '3.4': __build_magic(3310),
     '3.5': __build_magic(3350),
-    '3.6': __build_magic(3360),
-    '3.7': __build_magic(3390),
+    '3.5.3': __build_magic(3351),
+    '3.6': __build_magic(3379),
+    '3.7': __build_magic(3394),
+    '3.8': __build_magic(3413),
+    '3.9': __build_magic(3425),
+    '3.10': __build_magic(3439),
+    '3.11': __build_magic(3495)
 }
 
 
@@ -177,3 +182,4 @@ def unpy2exe(filename, python_version=None, output_dir=None):
     code_objects = extract_code_objects(pe)
     for co in code_objects:
         dump_to_pyc(co, python_version, output_dir)
+
