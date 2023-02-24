@@ -1,4 +1,4 @@
-import importlib
+import imp
 import logging
 import marshal
 import ntpath
@@ -66,7 +66,7 @@ def __source_size(size):
 
 def __current_magic():
     """Current Python magic number."""
-    return importlib.util.MAGIC_NUMBER
+    return imp.get_magic()
 
 
 def _get_scripts_resource(pe):

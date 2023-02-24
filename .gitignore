@@ -6,3 +6,4 @@
 *.iml
 out
 gen
+unpy2exe.egg-info
